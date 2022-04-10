@@ -27,7 +27,7 @@ class TransactionsController < ApplicationController
     #Call on the class method to substract points and return balances
     @spent_balance = Transaction.substract_points(transaction_params[:points])
 
-    if @spent_balance.has_key?("Fatal")
+    if @spent_balance.key?("Fatal")
       render json: @spent_balance, status: 400
     else
       render json: @spent_balance, status: 201
