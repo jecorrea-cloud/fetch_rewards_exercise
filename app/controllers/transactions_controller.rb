@@ -1,49 +1,42 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[ show update destroy ]
 
-  # GET /transactions
-  def index
+  def current_balances 
+    #Bring down all present transactions in the database
     @transactions = Transaction.all
-
-    render json: @transactions
+    recent_transactions = {}
+    #Iterate through all existing hashes in the database and take out the proper attributes from them
+    @transactions.map do |transaction|
+        recent_transactions.key?(transaction.payer) ? recent_transactions[transaction.payer] += transaction.points : recent_transactions[transaction.payer] = transaction.points
+    end    
+    render json: recent_transactions
   end
 
-  # GET /transactions/1
-  def show
-    render json: @transaction
-  end
-
-  # POST /transactions
-  def create
-    @transaction = Transaction.new(transaction_params)
-
-    if @transaction.save
-      render json: @transaction, status: :created, location: @transaction
+  def create_transaction
+    #Variable with the input params from the request
+    @transaction = Transaction.create(transaction_params)
+    #Check whether they are valid or not. If they are, return the object just created and the status or error messages
+    if @transaction.valid?
+        render json: @transaction, status: 201
     else
-      render json: @transaction.errors, status: :unprocessable_entity
+        render json: {"errors": @transaction.errors.full_messages}, status: 422
     end
   end
 
-  # PATCH/PUT /transactions/1
-  def update
-    if @transaction.update(transaction_params)
-      render json: @transaction
+  
+  def spend_pts
+    #Call on the class method to substract points and return balances
+    @spent_balance = Transaction.substract_points(transaction_params[:points])
+
+    if @spent_balance.has_key?("Fatal")
+      render json: @spent_balance, status: 400
     else
-      render json: @transaction.errors, status: :unprocessable_entity
+      render json: @spent_balance, status: 201
     end
+
   end
 
-  # DELETE /transactions/1
-  def destroy
-    @transaction.destroy
-  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def transaction_params
       params.require(:transaction).permit(:payer, :points, :timestamp)
