@@ -9,8 +9,8 @@ puts "💸 Seeding transactions..."
 Transaction.create!([
     { payer: "DANNON", points: 1000, timestamp: "2020-11-02T14:00:00Z" },
     { payer: "UNILEVER", points: 200, timestamp: "2020-10-31T11:00:00Z" },
-    # Exercise prompt was not clear as to why line 15 would be a valid input. In any case
-    # it can be used: Just uncommment line 15 and comment out line 5 in 'transaction.rb' 
+    # Exercise prompt was not clear as to why line 15 would be a valid input.
+    # To use it, uncommment line 15 and comment out line 5 in 'transaction.rb' 
     # in the 'models' folder when running `rails db:seed` or `rails db:reset`. 
     # { payer: "DANNON", points: -200, timestamp: "2020-10-31T15:00:00Z" },
     { payer: "MILLER COORS", points: 10000, timestamp: "2020-11-01T14:00:00Z" },
