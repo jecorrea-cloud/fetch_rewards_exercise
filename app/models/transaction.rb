@@ -26,13 +26,12 @@ class Transaction < ApplicationRecord
         receipt = {}
         # Conditional. If the total points are not enough to be spent, return a message
         if self.total < pts
-            receipt = {"Fatal": "Not enough points to make the request"}
+            receipt = {}
         else
             # Otherwise, iterate through if there are enough points in the database
             for i in 0...sorted_trans.length do
                 # If the input points happen to be zero, exit
                 if pts <= 0
-                    receipt = {"Fatal": "Input points cannot be less than or equal to zero"}
                     break
                 end
                 # Check first if the current transaction's points are positive

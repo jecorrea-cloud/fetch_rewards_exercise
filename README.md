@@ -18,8 +18,17 @@ This is a REST API service used to track payers' points in a database. This is a
 - Clone _this_ repo in _command line_: `git clone ` and one of the links below
   - **HTTPS:** `https://github.com/jecorrea-cloud/fetch_exercise.git`
   - **SSH:** `git@github.com:jecorrea-cloud/fetch_exercise.git`
-- `cd` into the project and install in your command line:
-  - _ruby_: https://rubyinstaller.org/downloads/
+- `cd` into the project and install in _command line_:
+  - _ruby_:
+    - **Linux:**
+      1. install rvm
+      2. install ruby
+    - **MacOS:**
+      1. install rvm
+      2. install ruby
+    - **Windows WSL:**
+      1. install rvm
+      2. install ruby
   - _rails_: in _command line_ run: `gem install rails`
   - run `bundle install` to download all the provided gems.
   - run `rails db:migrate db:seed` to run the migrations and seed file locally.
@@ -59,7 +68,7 @@ For all existing recent `Transaction`s created, return JSON data in the format b
 ```json
 [
   {
-    "DANNON": 1100,
+    "DANNON": 1300,
     "UNILEVER": 200,
     "MILLER COORS": 10000
   }
@@ -113,16 +122,19 @@ The expected response from the spend call would be:
 
 ```json
 [
-  { "payer": "DANNON", "points": -100 },
+  { "payer": "DANNON", "points": -300 },
   { "payer": "UNILEVER", "points": -200 },
-  { "payer": "MILLER COORS", "points": -4,700 }
+  { "payer": "MILLER COORS", "points": -4,500 }
 ]
 ```
 
-If the input `points` in the body of the request are less than or equal to zero, the expected response should be:
+If the input `points` in the body of the request are less than or equal to zero, or exceed the total existing `points`
+amount in the database, the expected response from the call is:
 
 ```json
-{ "Fatal": "Input points cannot be less than or equal to zero" }
+{
+  "errors": "Invalid input. Input Points cannot be negative, zero or greater than the current balances."
+}
 ```
 
 If it is not possible to substract from the current `points`, meaning input `points` exceed the total existing `points`

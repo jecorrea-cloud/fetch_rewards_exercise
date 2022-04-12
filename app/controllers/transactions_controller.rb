@@ -27,8 +27,8 @@ class TransactionsController < ApplicationController
     #Call on the class method to substract points and return balances
     @spent_balance = Transaction.substract_points(transaction_params[:points])
 
-    if @spent_balance.key?("Fatal")
-      render json: @spent_balance, status: 400
+    if @spent_balance.empty?
+      render json: {"errors": "Invalid input. Input Points cannot be negative, zero or greater than the current balances."}, status: 400
     else
       render json: @spent_balance, status: 201
     end
