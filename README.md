@@ -151,13 +151,6 @@ amount in the database, the expected response from the call is:
 }
 ```
 
-If it is not possible to substract from the current `points`, meaning input `points` exceed the total existing `points`
-in the database, the expected response from the call is:
-
-```json
-{ "Fatal": "Not enough points to make the request" }
-```
-
 ## Technologies Used
 
 - **Ruby 3.1.1** and **Ruby on Rails 7.0.2.3**
