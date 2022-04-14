@@ -16,8 +16,10 @@ This is a REST API service used to track payers' points in a database. This is a
 ## Installations
 
 - Clone _this_ repo in _command line_: `git clone ` and one of the links below
+
   - **HTTPS:** `https://github.com/jecorrea-cloud/fetch_exercise.git`
   - **SSH:** `git@github.com:jecorrea-cloud/fetch_exercise.git`
+
 - `cd` into the project and install in _command line_:
 
   - _ruby_:
