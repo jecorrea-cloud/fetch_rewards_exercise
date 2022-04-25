@@ -153,6 +153,64 @@ amount in the database, the expected response from the call is:
 }
 ```
 
+### GET /search_payer
+
+This route displays the current transactions, from oldest to newest, regarding one specific `payer`. It accepts an object with the following property in the body of the request below:
+
+```json
+{
+  "payer": "DANNON"
+}
+```
+
+The expected response from the call along with the appropriate HTTP verb would be:
+
+```json
+[
+  { "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" },
+
+  { "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
+]
+```
+
+If the input `payer` in the body of the request does not match with the existing ones, the expected response from the call, along with the appropriate HTTP, verb would be:
+
+```json
+{
+  "errors": "Invalid input. Payer not found."
+}
+```
+
+### GET /search_timestamp
+
+This route displays the current transactions regarding one specific `payer`. It accepts an object with the following property in the body of the request below:
+
+```json
+{
+  "timestamp": "2020-11-01T14:00:00Z"
+}
+```
+
+The expected response from the call along with the appropriate HTTP verb would be:
+
+```json
+[
+  {
+    "payer": "MILLER COORS",
+    "points": 10000,
+    "timestamp": "2020-11-01T14:00:00Z"
+  }
+]
+```
+
+If the input `timestamp` in the body of the request is not present in the database, the expected response from the call along with the appropriate HTTP verb would be:
+
+```json
+{
+  "errors": "Invalid input. No Transactions were found for this date."
+}
+```
+
 ## Technologies Used
 
 - **Ruby 3.1.1** and **Ruby on Rails 7.0.2.3**

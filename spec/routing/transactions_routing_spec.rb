@@ -13,5 +13,13 @@ RSpec.describe TransactionsController, type: :routing do
     it "routes to #spend_pts" do
       expect(post: "/spend_points").to route_to("transactions#spend_pts")
     end
+
+    it "routes to #search_p" do
+      expect(get: "/search_payer").to route_to("transactions#search_p")
+    end
+
+    it "routes to #search_t" do
+      expect(get: "search_timestamp".to route_to("transactions#search_t"))
+    end
   end
 end

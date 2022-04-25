@@ -35,6 +35,30 @@ class TransactionsController < ApplicationController
 
   end
 
+  def search_p
+    # Iterate the database and with the `.where()` built-in rails method 
+    @payer_info = Transaction.where(payer: transaction_params[:payer].upcase).or(Transaction.where("payer LIKE ?", "%"+transaction_params[:payer].upcase+"%")).sort_by(&:timestamp)
+
+    # Return either an error response or an array with the requested payer's transactions
+    if @payer_info.empty?
+      render json: {"errors": "Invalid input. Payer not found."}, status: 404
+    else
+      render json: @payer_info, status: 200
+    end
+  end
+
+  def search_t
+    # Iterate the database and with the `.where()` built-in rails method 
+    @payer_info = Transaction.where(timestamp: transaction_params[:timestamp])
+
+    # Return either an error response or an array with the transactions with the requested timestamp
+    if @payer_info.empty?
+      render json: {"errors": "Invalid input. No Transactions were found for this date."}, status: 404
+    else
+      render json: @payer_info, status: 200
+    end
+  end
+
 
   private
     # Only allow a list of trusted parameters through.

@@ -62,4 +62,5 @@ class Transaction < ApplicationRecord
         end
         receipt
     end
+
 end

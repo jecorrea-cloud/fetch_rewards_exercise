@@ -19,7 +19,7 @@ RSpec.describe "/transactions", type: :request do
   let(:valid_attributes) {
     # skip("Add a hash of attributes valid for your model")
     {
-      payer: "GOKU",
+      payer: "STARBUCKS",
       points: 9001,
       timestamp: "2022-01-31T15:00:00"
     }
@@ -83,4 +83,6 @@ RSpec.describe "/transactions", type: :request do
       end
     end
   end
+
+
 end

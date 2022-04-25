@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   get '/balances', to: 'transactions#current_balances'
   post '/add_transaction', to: 'transactions#create_transaction'
   post '/spend_points', to: 'transactions#spend_pts'
+
+  get '/search_payer', to: 'transactions#search_p'
+  get '/search_timestamp', to: 'transactions#search_t'
 end
